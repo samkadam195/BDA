@@ -1,0 +1,46 @@
+Aim:- Install, Configure and run PIG
+
+jps
+  
+cd /usr/local
+ 
+sudo tar xzvf /home/udit/Downloads/pig-0.17.0-src.tar.gz 
+ 
+sudo mv pig-0.17.0-src/  pig
+ 
+sudo nano ~/.bashrc     
+ 
+# Add the following lines
+export PIG_HOME=/usr/local/pig
+export PATH=$PATH:$PIG_HOME/bin
+export PIG_CLASSPATH=$HADOOP_HOME/conf
+ 
+
+source ~/.bashrc
+ 
+sudo nano products.txt
+ 
+#Enter some text like (without spaces)
+1,pizza,100,mumbai,2023
+2,shirt,40,Mumbai,2023
+3,pen,50,Mumbai,2023
+ 
+sudo tar xzvf /home/udit/Downloads/pig-0.17.0.tar.gz 
+sudo mv pig-0.17.0/  pig
+ 
+
+# 6. Run the pig in Local mode (pig can access data present only in local file system, eg the product file) Start pig using following command:
+pig -x local
+product = LOAD 'products.txt' USING PigStorage(',');
+dump product;
+quit
+ 
+
+hdfs dfs -put /usr/local/products.txt /
+ 
+Pig
+ 
+
+product = LOAD 'hdfs://localhost:54310/products.txt' USING PigStorage(',');
+dump product;
+quit;

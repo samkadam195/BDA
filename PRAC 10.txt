@@ -1,0 +1,21 @@
+Aim: Implement classification using Naïve Bayes Theorem & Evaluate the performance of classifier
+
+install.packages('e1071')
+#Installing package into ‘C:/Users/NGT/Documents/R/win-library/3.6’ 
+library(e1071)
+data=read.csv('C:/Users/NGT/Desktop/Drive/BDA Prac/10. Clustering/Data sets/diabetes.csv')
+View(data)
+ 
+
+head(data)
+nbsmodel=naiveBayes(Outcome ~.,data=data)
+nbsmodel
+
+nbspred=predict(nbsmodel,data)
+nbspred
+tt=table(nbspred,data$Outcome)
+tt
+acc_test=sum(diag(tt)/sum(tt))
+acc_test
+
+

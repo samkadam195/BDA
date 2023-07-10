@@ -1,0 +1,26 @@
+Aim:- Implement word count / frequency programs using MapReduce
+
+su hduser	
+ 
+ssh localhost
+ 
+/usr/local/hadoop/sbin/start-all.sh
+ 
+jps 
+ 
+#start localhost - on browser
+http://localhost:9870
+ 
+sudo nano bda.txt
+ 
+sudo chown hduser:hadoop /home/hduser/bda.txt
+ 
+hdfs dfs -put /home/hduser/bda.txt /
+ 
+hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.3.jar wordcount /bda.txt /output
+ 
+hdfs dfs -head /output/part-r-00000
+ 
+hdfs dfs -mv /output/part-r-00000 /output/opt.txt
+ 
+hdfs dfs -ls /

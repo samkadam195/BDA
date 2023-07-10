@@ -1,0 +1,79 @@
+AIM: Install, Configure and run Hive 
+
+sudo rm -r -f /usr/local/hive
+
+Jps
+ 
+cd /usr/local
+ 
+sudo tar xvzf /home/udit/Downloads/apache-hive-3.1.2-bin.tar.gz 
+
+sudo mv apache-hive-3.1.2-bin/ hive
+sudo chmod 777 hive
+ 
+cd /home/hduser
+sudo nano ~/.bashrc
+ 
+#add following lines 
+export HIVE_HOME=/usr/local/hive
+export PATH=$PATH:$HIVE_HOME/bin
+ 
+source ~/.bashrc
+ 
+cd /usr/local/hive/bin     
+sudo nano hive-config.sh
+ 
+#Add following line
+export HADOOP_HOME=/usr/local/hadoop
+ 
+
+hdfs dfs -mkdir /tmp
+hdfs dfs -chmod g+w /tmp
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -chmod g+w /user/hive/warehouse
+sudo chmod 777 /usr/local/hive/
+ 
+cd /usr/local/hive/
+cd /$HIVE_HOME/bin
+ 
+
+$HIVE_HOME/bin/schematool -initSchema -dbType derby
+ 
+cd ..
+cd lib
+sudo rm guava-19.0.jar
+ 
+ 
+sudo cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar /usr/local/hive/lib/
+ 
+
+cd /$HIVE_HOME/bin
+schematool  -initSchema -dbType derby
+ 
+
+$HIVE_HOME/bin/schematool -initSchema -dbType derby
+ 
+
+hive
+show database
+
+
+create database company;
+show databases;
+
+create table employees (id int, name string, country string, department string, salary int) row format delimited fields terminated by ' ';
+
+sudo nano employees.txt
+
+# Enter few rows without spaces
+Rohan student udit 45000
+Joel student udit 80000
+
+load data local inpath "/home/hduser/employees.txt" into table employees;
+
+
+select * from employees
+
+
+exit
+
